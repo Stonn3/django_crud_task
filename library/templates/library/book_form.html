@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>New book</title></head>
+<body>
+  <h1>New book</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+  <p><a href="/books/">Back</a></p>
+</body>
+</html>

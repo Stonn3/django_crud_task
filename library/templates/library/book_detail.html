@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Edit book</title></head>
+<body>
+  <h1>Edit book</h1>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <p>Title: <input name="title" value="{{ book.title }}"></p>
+
+    <p>Author:
+      <select name="author">
+        <option value="">---</option>
+        {% for a in authors %}
+          <option value="{{ a.id }}" {% if book.author and a.id == book.author.id %}selected{% endif %}>
+            {{ a.first_name }} {{ a.last_name }}
+          </option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <p>ISBN: <input name="isbn" value="{{ book.isbn }}"></p>
+
+    <p>Year: <input name="publication_year" value="{{ book.publication_year }}"></p>
+
+    <p>Genres:
+      {% for g in genres %}
+        <label>
+          <input type="checkbox" name="genres" value="{{ g.id }}"
+            {% if g in book.genres.all %}checked{% endif %}>
+          {{ g.name }}
+        </label>
+      {% endfor %}
+    </p>
+
+    <p>Co-authors: <input name="co_authors" value="{{ book.co_authors }}"></p>
+
+    <p>Summary:<br>
+      <textarea name="summary">{{ book.summary }}</textarea>
+    </p>
+
+    <button type="submit">Save</button>
+  </form>
+
+  <p><a href="/books/">Back</a></p>
+</body>
+</html>
